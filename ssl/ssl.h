@@ -540,6 +540,20 @@ EXP_FUNC int STDCALL ssl_obj_load(SSL_CTX *ssl_ctx, int obj_type, const char *fi
  */
 EXP_FUNC int STDCALL ssl_obj_memory_load(SSL_CTX *ssl_ctx, int obj_type, const uint8_t *data, int len, const char *password);
 
+ 
+  /**		  /**
+  * @brief Check the rx buffer for new information.
+  * If the socket has new information to be read, 1 will be returned.
+  * Cheap alternative to check availability without actually decrypting.
+  * @param ssl [in] An SSL object reference.
+  * @return Read status:
+  * - if == 1, then there are bytes to be read,
+  * - if == 0, then there are not,
+  * - if < 0,  there was an error.
+  * @see ssl.h for the error code list.
+  */
+ EXP_FUNC int STDCALL ssl_want_read(SSL *ssl);
+ 
 #ifdef CONFIG_SSL_GENERATE_X509_CERT
 /**
  * @brief Create an X.509 certificate. 
