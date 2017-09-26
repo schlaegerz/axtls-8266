@@ -2275,6 +2275,20 @@ EXP_FUNC int STDCALL ssl_match_spki_sha256(const SSL *ssl, const uint8_t* hash)
 
 #endif /* CONFIG_SSL_CERT_VERIFICATION */
 
+
+ /*
+  * Check the rx buffer for new information.
+  */
+  EXP_FUNC int STDCALL ssl_want_read(SSL *ssl)
+  {
+      int ret = SOCKET_PENDING(ssl->client_fd);
+      
+      if (ret < 0) {
+          return ret;
+      }
+      
+      return ret > 0;
+  }
 /**
  * Debugging routine to display SSL handshaking stuff.
  */
